@@ -18,7 +18,7 @@ app.use(express.json());
 
 ///  REST API
 app.use("/files", require("./routes/files"));
-// app.use("/sharefile", require("./routes/shareFile"));
+app.use("/sharefile", require("./routes/shareFile"));
 
 app.get("*", (req, res) => {
   res.status(404);
