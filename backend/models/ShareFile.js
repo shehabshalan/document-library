@@ -11,22 +11,6 @@ const fileShareSchema = new Schema(
       type: String,
       required: true,
     },
-    fileType: {
-      type: String,
-      required: true,
-    },
-    fileSize: {
-      type: String,
-      required: true,
-    },
-    fileOwner: {
-      type: String,
-      required: true,
-    },
-    downloads: {
-      type: Number,
-      default: 0,
-    },
   },
   {
     timestamps: true,
