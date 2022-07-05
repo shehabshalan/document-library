@@ -7,7 +7,7 @@ const fileShareSchema = new Schema(
       type: String,
       required: true,
     },
-    expiration: {
+    expiresAt: {
       type: String,
       required: true,
     },
