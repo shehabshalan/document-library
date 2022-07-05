@@ -56,23 +56,22 @@ const uploadFile = async (req, res) => {
     const newFiles = await File.insertMany(result);
     res.status(200).json({ message: newFiles });
   } catch (err) {
-    console.log(err.message);
     return res.status(500).json({ message: err.message });
   }
 };
 
 const deleteFile = async (req, res) => {
-  if (!req?.body?.id)
+  if (!req?.params?.id)
     return res.status(400).json({ message: "ID is required" });
-  const id = req.body.id;
-  const employee = await Employee.findById(id);
-  if (!employee) {
+  const id = req.params.id;
+  const file = await File.findById(id);
+  if (!file) {
     return res
       .status(204)
-      .json({ message: `Employee ID ${req.body.id} not found` });
+      .json({ message: `File ID ${req.params.id} not found` });
   }
-  const result = await employee.remove();
-  res.json({ message: "Employee deleted" });
+  const result = await file.remove();
+  res.json({ message: "File deleted" });
 };
 
 module.exports = {
