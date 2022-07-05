@@ -8,15 +8,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 const Documents = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
   const [files, setFiles] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
 
@@ -40,6 +31,10 @@ const Documents = () => {
 
   if (loading) {
     return <h1>Loading...</h1>;
+  }
+
+  if (files?.length === 0) {
+    return <h1>No files found</h1>;
   }
 
   return (
