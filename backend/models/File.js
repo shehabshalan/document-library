@@ -15,7 +15,11 @@ const fileSchema = new Schema(
       type: String,
       required: true,
     },
-    fileSize: {
+    fileSizeInBytes: {
+      type: Number,
+      required: true,
+    },
+    fileSizeInMb: {
       type: String,
       required: true,
     },
