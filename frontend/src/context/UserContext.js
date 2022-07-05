@@ -1,27 +1,32 @@
 import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-
+import lodash from "lodash";
 const UserContext = createContext();
 
 export function UserContextProvider({ children }) {
-  const [document, setDocument] = React.useState(null);
+  const [document, setDocument] = React.useState([]);
 
   const handleFileChange = (e) => {
-    setDocument(e.target.files[0]);
-    console.log(e.target.files[0]);
+    const selectedFiles = [...e.target.files];
+    setDocument(selectedFiles);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/files";
-    const formData = new FormData();
-    formData.append("myfile", document);
+    console.log(document);
 
-    console.log(formData);
+    const formData = new FormData();
+    lodash.forEach(document, (file) => {
+      formData.append("myfile", file);
+    });
+
+    const url = "http://localhost:5000/files";
+
     axios
       .post(url, formData)
       .then((res) => {
+        console.log(formData);
         console.log(res);
       })
       .catch((err) => {
