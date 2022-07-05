@@ -5,19 +5,35 @@ import lodash from "lodash";
 const UserContext = createContext();
 
 export function UserContextProvider({ children }) {
-  const [document, setDocument] = React.useState([]);
+  const [files, setFiles] = React.useState([]);
+  const [expirationDateTime, setExpirationDateTime] = React.useState(
+    new Date()
+  );
 
+  const [uploading, setUploading] = React.useState(false);
+  const [uploadingError, setUploadingError] = React.useState(false);
+  const [uploadingSuccess, setUploadingSuccess] = React.useState(false);
+  const handleExpirationDateTime = (newValue) => {
+    setExpirationDateTime(newValue._d.toISOString());
+  };
   const handleFileChange = (e) => {
     const selectedFiles = [...e.target.files];
-    setDocument(selectedFiles);
+    setFiles(selectedFiles);
+    const map = selectedFiles.map((file) => {
+      return {
+        fileName: file.name,
+        fileSizeInBytes: file.size,
+        fileType: file.type,
+      };
+    });
+    console.log(map);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(document);
-
+    setUploading(true);
     const formData = new FormData();
-    lodash.forEach(document, (file) => {
+    lodash.forEach(files, (file) => {
       formData.append("myfile", file);
     });
 
@@ -26,11 +42,14 @@ export function UserContextProvider({ children }) {
     axios
       .post(url, formData)
       .then((res) => {
-        console.log(formData);
-        console.log(res);
+        setUploading(false);
+        setUploadingSuccess(true);
+        setFiles([]);
       })
       .catch((err) => {
-        console.log(err);
+        setUploading(false);
+        setUploadingError(true);
+        setFiles([]);
       });
   };
 
@@ -39,6 +58,12 @@ export function UserContextProvider({ children }) {
       value={{
         handleFileChange,
         handleSubmit,
+        handleExpirationDateTime,
+        expirationDateTime,
+        files,
+        uploading,
+        uploadingError,
+        uploadingSuccess,
       }}
     >
       {children}
