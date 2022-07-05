@@ -9,17 +9,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
 import { styled } from "@mui/material/styles";
+import { useUserContext } from "../context/UserContext";
 
 const Input = styled("input")({
   display: "none",
 });
 const UploadForm = () => {
+  const { handleFileChange, handleSubmit } = useUserContext();
+
   return (
     <Paper
       component="form"
-      onSubmit={"handleSubmit"}
+      onSubmit={handleSubmit}
       noValidate
       sx={{
         maxWidth: 700,
@@ -39,19 +41,14 @@ const UploadForm = () => {
             upload your files here
           </Typography>
           <Stack direction="column" spacing={2} justifyContent="center">
-            <Typography>
-              No file yet
-              {/* {video ? `${video.name}` : "No video selected yet"} */}
-            </Typography>
-            {/* {progressVideo > 0 && <ProgressBar progress={'progressVideo'} />} */}
-
             <label htmlFor="contained-button-thumbnail">
               <Input
-                accept="image/*"
+                accept=".doc, .pdf, .docx, .txt, .csv, .xls, .xlsx, image/*"
                 id="contained-button-thumbnail"
-                name="thumbnail"
-                //   onChange={(e) => setThumbail(e.target.files[0])}
+                name="myfile"
+                onChange={handleFileChange}
                 type="file"
+                multiple
               />
               <Button
                 sx={{ width: "100%" }}
