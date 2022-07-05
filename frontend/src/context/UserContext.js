@@ -1,75 +1,39 @@
+import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Endpoints } from "../constants/endpoints";
 
 const UserContext = createContext();
 
 export function UserContextProvider({ children }) {
-  const [isAuth, setIsAuth] = useState(
-    localStorage.getItem("token") ? true : false
-  );
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [document, setDocument] = React.useState(null);
 
-  function login(payload) {
-    setLoading(true);
-    const url = "http://localhost:5000/auth";
+  const handleFileChange = (e) => {
+    setDocument(e.target.files[0]);
+    console.log(e.target.files[0]);
+  };
 
-    return axios
-      .post(url, payload)
-      .then((response) => {
-        setLoading(false);
-        console.log(response);
-        console.log("response.data.accessToken: " + response.data.accessToken);
-        localStorage.setItem("token", response.data.accessToken);
-        window.location.href = "/";
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const url = "http://localhost:5000/files";
+    const formData = new FormData();
+    formData.append("myfile", document);
+
+    console.log(formData);
+    axios
+      .post(url, formData)
+      .then((res) => {
+        console.log(res);
       })
-      .catch((error) => {
-        setLoading(false);
-
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
-  }
-  function register(payload) {
-    setLoading(true);
-    const url = Endpoints.register;
-    return axios
-      .post(url, payload)
-      .then((response) => {
-        setLoading(false);
-        localStorage.setItem("token", response.data.jwt);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        window.location.href = "/";
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log("An error occurred:", error.response);
-      });
-  }
-  function logout() {
-    localStorage.removeItem("token");
-    setIsAuth(false);
-    window.location.href = "/";
-  }
+  };
 
   return (
     <UserContext.Provider
       value={{
-        isAuth,
-        loading,
-        register,
-        login,
-        logout,
-        searchTerm,
-        setSearchTerm,
-        open,
-        setOpen,
-        handleOpen,
-        handleClose,
+        handleFileChange,
+        handleSubmit,
       }}
     >
       {children}
