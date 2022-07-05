@@ -12,11 +12,8 @@ const {
   deleteFile,
 } = require("../controllers/filesController");
 
-router
-  .route("/")
-  .get(getFiles)
-  .post(upload.array("myfile"), uploadFile)
-  .delete(deleteFile);
+router.route("/").get(getFiles).post(upload.array("myfile"), uploadFile);
 router.get("/:id", getFileById);
+router.delete("/:id", deleteFile);
 
 module.exports = router;
