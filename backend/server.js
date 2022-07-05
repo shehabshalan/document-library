@@ -4,8 +4,15 @@ const corsOptions = require("./config/corsOptions");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const express = require("express");
+const cloudinary = require("cloudinary").v2;
 
 const app = express();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_API_CLOUDNAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const PORT = process.env.PORT || 5000;
 /// connect to mongoDB
@@ -13,7 +20,7 @@ connectDB();
 
 // ** MIDDLEWARE **
 app.use(cors(corsOptions));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 ///  REST API
