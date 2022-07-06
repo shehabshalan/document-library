@@ -63,9 +63,31 @@ const deleteFile = async (req, res) => {
   }
 };
 
+// updateFileDownload
+const updateFileDownload = async (req, res) => {
+  try {
+    if (!req?.params?.id)
+      return res.status(400).json({ message: "ID is required" });
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/))
+      return res.status(400).json({ message: "ID is not valid" });
+    const id = req.params.id;
+    const file = await File.findById(id);
+    if (!file) {
+      return res
+        .status(204)
+        .json({ message: `File ID ${req.params.id} not found` });
+    }
+    const result = await file.updateOne({ $inc: { downloads: 1 } });
+    res.json({ message: `File updated ` });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getFiles,
   getFileById,
   uploadFile,
   deleteFile,
+  updateFileDownload,
 };

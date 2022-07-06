@@ -16,7 +16,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import { Button, CardActions, Divider } from "@mui/material";
-import { useUserContext } from "../context/UserContext";
 
 const documentIcon = (fileType) => (
   <>
@@ -32,8 +31,7 @@ const documentIcon = (fileType) => (
     {fileType === "svg" && <FaFileImage size={30} />}
   </>
 );
-const DocumentCard = ({ file }) => {
-  const { handleOpen, handleDownloads } = useUserContext();
+const SharedDocument = ({ file }) => {
   return (
     <Card sx={{ maxWidth: 345, height: 400 }}>
       <CardMedia
@@ -45,9 +43,9 @@ const DocumentCard = ({ file }) => {
       />
       <CardContent>
         <Typography variant="h6" component="div">
-          {file.fileName.length > 15
-            ? file.fileName.substring(0, 20) + "..."
-            : file.fileName}
+          {file?.fileName?.length > 15
+            ? file?.fileName?.substring(0, 20) + "..."
+            : file?.fileName}
         </Typography>
 
         <Divider sx={{ my: 2 }} />
@@ -59,22 +57,11 @@ const DocumentCard = ({ file }) => {
         >
           <Grid item xs={4} md={4}>
             <ListItem>
-              {documentIcon(file.fileType)}
+              {documentIcon(file?.fileType)}
               <ListItemText
-                primary={file.fileType.toUpperCase()}
+                primary={file?.fileType?.toUpperCase()}
                 sx={{ ml: 1 }}
               />
-            </ListItem>
-          </Grid>
-          {/* <Grid item xs={4} md={4}>
-            <ListItem>
-              <ListItemText primary={file.fileSizeInMb} />
-            </ListItem>
-          </Grid> */}
-          <Grid item xs={4} md={4}>
-            <ListItem>
-              <FaFileDownload size={20} />
-              <ListItemText primary={file.downloads} />
             </ListItem>
           </Grid>
         </Grid>
@@ -83,19 +70,11 @@ const DocumentCard = ({ file }) => {
       <CardActions>
         <Button
           size="small"
-          color="primary"
-          onClick={() => handleOpen(file._id)}
-        >
-          Share
-        </Button>
-        <Button
-          size="small"
           color="secondary"
           component="a"
-          href={file.fileUrl}
+          href={file?.fileUrl}
           download
           target="_blank"
-          onClick={() => handleDownloads(file._id)}
         >
           Download
         </Button>
@@ -104,4 +83,4 @@ const DocumentCard = ({ file }) => {
   );
 };
 
-export default DocumentCard;
+export default SharedDocument;

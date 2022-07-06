@@ -1,29 +1,10 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import axios from "axios";
 import { Typography } from "@mui/material";
 import DocumentCard from "./DocumentCard";
+import { useUserContext } from "../context/UserContext";
 const Documents = () => {
-  const [files, setFiles] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
-
-  const getFiles = async () => {
-    setLoading(true);
-
-    try {
-      const res = await axios.get("http://localhost:5000/files");
-      console.log(res.data);
-      setFiles(res.data);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
-  };
-
-  React.useEffect(() => {
-    getFiles();
-  }, []);
+  const { files, loading } = useUserContext();
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -34,7 +15,7 @@ const Documents = () => {
   }
 
   return (
-    <Grid container sx={{ height: "100vh" }}>
+    <Grid container>
       <Typography variant="h4" gutterBottom>
         Documents
       </Typography>

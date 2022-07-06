@@ -16,9 +16,9 @@ const Input = styled("input")({
   display: "none",
 });
 
-const renderFiles = (files) => (
+const renderFiles = (filesUploaded) => (
   <Stack spacing={2}>
-    {files.map((file, i) => (
+    {filesUploaded.map((file, i) => (
       <Box key={i}>
         <Typography variant="body1">{file.name}</Typography>
       </Box>
@@ -30,7 +30,7 @@ const UploadForm = () => {
   const {
     handleFileChange,
     handleSubmit,
-    files,
+    filesUploaded,
     uploading,
     uploadingError,
     uploadingSuccess,
@@ -63,7 +63,9 @@ const UploadForm = () => {
               upload your files here
             </Typography>
 
-            {files ? files.length > 0 && renderFiles(files) : null}
+            {filesUploaded
+              ? filesUploaded.length > 0 && renderFiles(filesUploaded)
+              : null}
             <Stack direction="column" spacing={2} justifyContent="center">
               <label htmlFor="contained-button-thumbnail">
                 <Input
