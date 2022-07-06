@@ -7,11 +7,19 @@ const Documents = () => {
   const { files, loading } = useUserContext();
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <Typography variant="body1" gutterBottom>
+        Loading...
+      </Typography>
+    );
   }
 
   if (files?.length === 0) {
-    return <h1>No files found</h1>;
+    return (
+      <Typography variant="h4" gutterBottom>
+        No files yet
+      </Typography>
+    );
   }
 
   return (
