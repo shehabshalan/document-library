@@ -10,10 +10,12 @@ const {
   getFileById,
   uploadFile,
   deleteFile,
+  updateFileDownload,
 } = require("../controllers/filesController");
 
 router.route("/").get(getFiles).post(upload.array("myfile"), uploadFile);
 router.get("/:id", getFileById);
 router.delete("/:id", deleteFile);
+router.put("/:id", updateFileDownload);
 
 module.exports = router;
