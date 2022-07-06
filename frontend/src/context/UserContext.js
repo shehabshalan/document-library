@@ -76,7 +76,12 @@ export function UserContextProvider({ children }) {
     console.log(id);
     setFileId(id);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSharingLink("");
+    setSharingSuccess(false);
+    setSharingError(false);
+  };
   const handleShareFile = async (e) => {
     e.preventDefault();
     setGeneratingLink(true);
@@ -84,7 +89,6 @@ export function UserContextProvider({ children }) {
       fileId: fileId,
       expiresAt: expirationDateTime,
     };
-    console.log(payload);
     try {
       const res = await axios.post("http://localhost:5000/sharefile", payload);
       console.log(res.data.message);
