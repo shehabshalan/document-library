@@ -1,23 +1,20 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import DocumentCard from "../components/DocumentCard";
 import { Box, Typography } from "@mui/material";
 import SharedDocument from "../components/SharedDocument";
+import { Endpoints } from "../constants/endpoints";
 const ShareFile = () => {
   const { id } = useParams();
-  const [file, setFile] = React.useState({});
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [file, setFile] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  const getFiles = async () => {
-    setLoading(true);
+  const getSharedFile = async () => {
     try {
-      const url = `http://localhost:5000/sharefile/${id}`;
       setLoading(true);
-      let res = await axios.get(url);
-
-      setFile(res.data.message);
+      let res = await axios.get(`${Endpoints.getSharedFileById}/${id}`);
+      setFile(res.data.result);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -26,8 +23,9 @@ const ShareFile = () => {
     }
   };
 
-  React.useEffect(() => {
-    getFiles();
+  useEffect(() => {
+    getSharedFile();
+    // eslint-disable-next-line no-unused-vars
   }, []);
 
   return (
