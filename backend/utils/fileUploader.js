@@ -9,7 +9,6 @@ const fileUploader = async (file) => {
       resource_type: "auto",
       format: checkFormat(file.mimetype),
     });
-    console.log(fileUploaded);
     return fileUploaded;
   } catch (err) {
     console.log("Cloudinary error: ", err);

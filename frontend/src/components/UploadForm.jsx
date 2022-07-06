@@ -37,7 +37,7 @@ const UploadForm = () => {
   } = useUserContext();
 
   return (
-    <>
+    <section>
       <Typography variant="h4" gutterBottom>
         Upload Area
       </Typography>
@@ -92,8 +92,9 @@ const UploadForm = () => {
               fullWidth
               sx={{ mt: 3, mb: 2 }}
               loading={uploading}
+              disabled={!filesUploaded?.length > 0}
             >
-              Submit
+              UPLOAD
             </LoadingButton>
             {uploadingError && (
               <Alert severity="error">
@@ -106,7 +107,7 @@ const UploadForm = () => {
           </Container>
         </Box>
       </Paper>
-    </>
+    </section>
   );
 };
 

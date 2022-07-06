@@ -24,18 +24,16 @@ export function UserContextProvider({ children }) {
     setLoading(true);
     try {
       const res = await axios.get(Endpoints.getFiles);
-      console.log(res.data.result);
       setFiles(res.data.result);
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      console.log(err);
     }
   };
 
   useEffect(() => {
     getFiles();
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleExpirationDateTime = (newValue) => {
@@ -70,7 +68,6 @@ export function UserContextProvider({ children }) {
 
   const handleOpen = (id) => {
     setOpen(true);
-    console.log(id);
     setFileId(id);
   };
   const handleClose = () => {

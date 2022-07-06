@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 const Navbar = () => {
   return (
-    <AppBar position="static" sx={{ mb: 5 }}>
+    <AppBar position="static" sx={{ mb: 5 }} component="header">
       <Toolbar>
         <Typography
           variant="h6"

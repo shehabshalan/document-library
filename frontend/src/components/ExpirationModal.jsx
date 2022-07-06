@@ -24,7 +24,6 @@ const ExpirationModal = () => {
     handleClose,
     handleShareFile,
     sharingError,
-    sharingSuccess,
     sharingLink,
   } = useUserContext();
 

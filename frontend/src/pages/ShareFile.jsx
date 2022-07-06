@@ -25,7 +25,7 @@ const ShareFile = () => {
 
   useEffect(() => {
     getSharedFile();
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

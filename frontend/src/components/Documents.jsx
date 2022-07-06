@@ -23,7 +23,7 @@ const Documents = () => {
   }
 
   return (
-    <Grid container>
+    <Grid container component="section">
       <Typography variant="h4" gutterBottom>
         Documents
       </Typography>
@@ -35,7 +35,15 @@ const Documents = () => {
         alignItems="center"
       >
         {files.map((file) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={file._id}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            key={file._id}
+            component="article"
+          >
             <DocumentCard file={file} />
           </Grid>
         ))}
