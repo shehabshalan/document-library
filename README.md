@@ -93,7 +93,9 @@ Frontend
 - UI tweaks.
 
 ## Inside look:
-![Animation](https://user-images.githubusercontent.com/30008865/177461870-b0dcca6a-c112-4907-b1ff-ff7d878e2dec.gif)
+
+![Animation](https://user-images.githubusercontent.com/30008865/177469053-618da350-0aa4-4b4a-80b2-4c19d03dfd0e.gif)
+
 
 ## Tech Stack:
 | Tech stack  | Version |
