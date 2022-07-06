@@ -2,20 +2,19 @@ import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import lodash from "lodash";
+import { Endpoints } from "../constants/endpoints";
 const UserContext = createContext();
 
 export function UserContextProvider({ children }) {
-  const [filesUploaded, setFilesUploaded] = React.useState([]);
-  const [expirationDateTime, setExpirationDateTime] = React.useState(
-    new Date()
-  );
-  const [uploading, setUploading] = React.useState(false);
-  const [uploadingError, setUploadingError] = React.useState(false);
-  const [uploadingSuccess, setUploadingSuccess] = React.useState(false);
-  const [sharingError, setSharingError] = React.useState(false);
-  const [sharingSuccess, setSharingSuccess] = React.useState(false);
-  const [files, setFiles] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
+  const [filesUploaded, setFilesUploaded] = useState([]);
+  const [expirationDateTime, setExpirationDateTime] = useState(new Date());
+  const [uploading, setUploading] = useState(false);
+  const [uploadingError, setUploadingError] = useState(false);
+  const [uploadingSuccess, setUploadingSuccess] = useState(false);
+  const [sharingError, setSharingError] = useState(false);
+  const [sharingSuccess, setSharingSuccess] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [generatingLink, setGeneratingLink] = useState(false);
   const [sharingLink, setSharingLink] = useState("");
@@ -24,9 +23,9 @@ export function UserContextProvider({ children }) {
   const getFiles = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/files");
-      console.log(res.data);
-      setFiles(res.data);
+      const res = await axios.get(Endpoints.getFiles);
+      console.log(res.data.result);
+      setFiles(res.data.result);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -34,8 +33,9 @@ export function UserContextProvider({ children }) {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getFiles();
+    // eslint-disable-next-line no-unused-vars
   }, []);
 
   const handleExpirationDateTime = (newValue) => {
@@ -46,7 +46,7 @@ export function UserContextProvider({ children }) {
     setFilesUploaded(selectedFiles);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
     const formData = new FormData();
@@ -54,21 +54,18 @@ export function UserContextProvider({ children }) {
       formData.append("myfile", file);
     });
 
-    const url = "http://localhost:5000/files";
-
-    axios
-      .post(url, formData)
-      .then((res) => {
-        setUploading(false);
-        setUploadingSuccess(true);
-        setFilesUploaded([]);
-        getFiles();
-      })
-      .catch((err) => {
-        setUploading(false);
-        setUploadingError(true);
-        setFilesUploaded([]);
-      });
+    try {
+      // eslint-disable-next-line no-unused-vars
+      const res = await axios.post(Endpoints.uploadFiles, formData);
+      setUploading(false);
+      setUploadingSuccess(true);
+      setFilesUploaded([]);
+      getFiles();
+    } catch {
+      setUploading(false);
+      setUploadingError(true);
+      setFilesUploaded([]);
+    }
   };
 
   const handleOpen = (id) => {
@@ -76,7 +73,12 @@ export function UserContextProvider({ children }) {
     console.log(id);
     setFileId(id);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSharingLink("");
+    setSharingSuccess(false);
+    setSharingError(false);
+  };
   const handleShareFile = async (e) => {
     e.preventDefault();
     setGeneratingLink(true);
@@ -84,14 +86,11 @@ export function UserContextProvider({ children }) {
       fileId: fileId,
       expiresAt: expirationDateTime,
     };
-    console.log(payload);
     try {
-      const res = await axios.post("http://localhost:5000/sharefile", payload);
-      console.log(res.data.message);
-      setSharingLink(res.data.message);
+      const res = await axios.post(Endpoints.createSharedFile, payload);
+      setSharingLink(res.data.result);
       setGeneratingLink(false);
       setSharingSuccess(true);
-      console.log(res.data);
     } catch (err) {
       setGeneratingLink(false);
       setSharingError(true);
@@ -101,8 +100,8 @@ export function UserContextProvider({ children }) {
 
   const handleDownloads = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:5000/files/${id}`);
-      console.log(res.data);
+      // eslint-disable-next-line no-unused-vars
+      const res = await axios.put(`${Endpoints.updateDownloads}/${id}`);
       getFiles();
     } catch (err) {
       console.log(err);

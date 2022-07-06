@@ -18,7 +18,6 @@ const Home = () => {
         flexDirection: "column",
       }}
     >
-      <Navbar />
       <Container maxWidth="lg">
         <UploadForm />
         <Divider sx={{ my: 5 }} />
