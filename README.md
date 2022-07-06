@@ -19,11 +19,7 @@ Backend:
   ```
   cd backend
   ```
-- Install packages using yarn or npm 
-  ```
-  yarn install
-  ```
-  or 
+- Install packages using  npm 
     ```
   npm install
   ```
@@ -54,11 +50,7 @@ Frontend
   ```
   cd frontend
   ```
-- Install packages using yarn or npm 
-  ```
-  yarn install
-  ```
-  or 
+- Install packages using npm
     ```
   npm install
   ```
@@ -84,17 +76,11 @@ Frontend
 
 ![architecture](https://user-images.githubusercontent.com/30008865/177472581-72341a49-766b-4f94-8c52-30bc97840223.png)
 
-
-## Features:
-- Upload document/documents such as PDF / Excel / Word/ txt/ pictures documents.
-- Retrieve a list of documents with meta data.
-- Generate sharable link and specify expiration time.
-- Download a document.
-
 ## Improvements
 - Adding authentication to allow more users and have each user only get their own uploads.
 - File validation such as type, size etc.
-- Document preview for all document types allowed. 
+- Document preview for all document types allowed, currently only images and pdfs support preview.
+- Web viewer for documents. This is to allow users to view documents inside the browser.
 - UI tweaks.
 
 ## Inside look:
@@ -102,7 +88,7 @@ Frontend
 ![Animation](https://user-images.githubusercontent.com/30008865/177469053-618da350-0aa4-4b4a-80b2-4c19d03dfd0e.gif)
 
 
-## Tech Stack:
+## Core Tech Stack:
 | Tech stack  | Version |
 | ------------- | ------------- |
 | React.js  | 18.2.0  |
