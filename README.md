@@ -80,6 +80,11 @@ Frontend
 - you will get a generated link, copy the link and paste it in a new tab. 
 - come back after one minute and try the copied link again. it should show that the link has expired.
 
+## Architecture
+
+![architecture](https://user-images.githubusercontent.com/30008865/177472581-72341a49-766b-4f94-8c52-30bc97840223.png)
+
+
 ## Features:
 - Upload document/documents such as PDF / Excel / Word/ txt/ pictures documents.
 - Retrieve a list of documents with meta data.
