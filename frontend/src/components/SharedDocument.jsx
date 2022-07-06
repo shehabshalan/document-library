@@ -7,7 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import { Button, CardActions, Divider } from "@mui/material";
-import { documentIcon } from "./DocumentCard";
+import documentIcon from "../utils/documentIcon";
 import { useUserContext } from "../context/UserContext";
 
 const SharedDocument = ({ file }) => {
@@ -16,7 +16,7 @@ const SharedDocument = ({ file }) => {
   const supportedPreviewFileTypes = ["jpg", "png", "gif", "svg"];
 
   return (
-    <Card sx={{ maxWidth: 345, height: 400 }}>
+    <Card sx={{ width: 300, height: 400 }}>
       <CardMedia
         component="img"
         height="200"
