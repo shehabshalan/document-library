@@ -7,7 +7,7 @@ const getSharedFiles = async (req, res) => {
     const sharedFiles = await ShareFile.find();
     if (!sharedFiles)
       return res.status(404).send({ message: "No files found" });
-    res.status(200).json(sharedFiles);
+    res.status(200).json({ result: sharedFiles });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -33,7 +33,7 @@ const getSharedFileById = async (req, res) => {
     const file = await File.findById(sharedFile.fileId);
     if (!file) return res.status(201).json({ message: "file not found" });
 
-    res.status(200).json({ message: file });
+    res.status(200).json({ result: file });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -48,7 +48,7 @@ const createSharedFile = async (req, res) => {
         .json({ message: "File ID and expiration date are required" });
     const newFile = await ShareFile.create({ fileId, expiresAt });
     res.status(201).json({
-      message: `http://localhost:3000/sharefile/${newFile._id}`,
+      result: `http://localhost:3000/sharefile/${newFile._id}`,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -5,7 +5,7 @@ const getFiles = async (req, res) => {
   try {
     const files = await File.find();
     if (!files) return res.status(404).send({ message: "No files found" });
-    res.json(files);
+    res.json({ result: files });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -20,27 +20,22 @@ const getFileById = async (req, res) => {
     const id = req.params.id;
     const file = await File.findById(id);
     if (!file) return res.status(201).json({ message: "file not found" });
-    res.json(file);
+    res.json({ result: file });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
 const uploadFile = async (req, res) => {
-  try {
-    if (!req.files)
-      return res.status(400).json({ message: "No file uploaded" });
-    const files = req.files;
-    const filesUploaded = await Promise.all(
-      files.map((file) => fileUploader(file))
-    );
-    const result = formatData(files, filesUploaded);
-    console.log(files);
-    const newFiles = await File.insertMany(result);
-    res.status(200).json({ message: newFiles });
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
+  if (req?.files.length === 0)
+    return res.status(400).json({ message: "No file uploaded" });
+  const files = req.files;
+  const filesUploaded = await Promise.all(
+    files.map((file) => fileUploader(file))
+  );
+  const result = formatData(files, filesUploaded);
+  const newFiles = await File.insertMany(result);
+  res.status(200).json({ result: newFiles });
 };
 
 const deleteFile = async (req, res) => {
@@ -78,7 +73,7 @@ const updateFileDownload = async (req, res) => {
         .json({ message: `File ID ${req.params.id} not found` });
     }
     const result = await file.updateOne({ $inc: { downloads: 1 } });
-    res.json({ message: `File updated ` });
+    res.json({ result: `File updated ` });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
