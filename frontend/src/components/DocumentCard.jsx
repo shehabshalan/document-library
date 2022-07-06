@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+
 import {
   FaFileWord,
   FaFileImage,
@@ -17,8 +18,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import { Button, CardActions, Divider } from "@mui/material";
 import { useUserContext } from "../context/UserContext";
+import toDateTime from "../utils/toDateTime";
 
-const documentIcon = (fileType) => (
+export const documentIcon = (fileType) => (
   <>
     {fileType === "doc" && <FaFileWord size={30} />}
     {fileType === "docx" && <FaFileWord size={30} />}
@@ -34,13 +36,18 @@ const documentIcon = (fileType) => (
 );
 const DocumentCard = ({ file }) => {
   const { handleOpen, handleDownloads } = useUserContext();
+  const supportedPreviewFileTypes = ["jpg", "png", "gif", "svg"];
   return (
-    <Card sx={{ maxWidth: 345, height: 400 }}>
+    <Card sx={{ maxWidth: 345, height: 450 }}>
       <CardMedia
         component="img"
         height="200"
-        image={file.fileUrl}
-        alt="green iguana"
+        image={
+          supportedPreviewFileTypes.includes(file.fileType)
+            ? file.fileUrl
+            : require("../assets/no-preview.jpg")
+        }
+        alt={file.fileName}
         sx={{ objectFit: "fit" }}
       />
       <CardContent>
@@ -78,6 +85,10 @@ const DocumentCard = ({ file }) => {
             </ListItem>
           </Grid>
         </Grid>
+        <Divider sx={{ my: 2 }} />
+        <Typography variant="body1" gutterBottom>
+          uploaded in {toDateTime(file.createdAt)}
+        </Typography>
         <Divider />
       </CardContent>
       <CardActions>
