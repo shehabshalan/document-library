@@ -1,20 +1,20 @@
 # What is this?
 The application is a document library intended to give its users a web based solution to store and share their documents with others.
 
-Demo: 
+**Demo**: 
 
 ### Requirements
 - Node v16
 - React v18
 
 ## How to run?
-Clone the repo. 
+**Clone the repo**. 
 
   ```
   git clone https://github.com/shehabshalan/document-library
   ```
 
-Backend:
+**Backend**:
 - Navigate to backend folder
   ```
   cd backend
@@ -45,7 +45,7 @@ CLOUDINARY_API_CLOUDNAME=dmb4vowh7
   ```
   npm start
   ```
-Frontend
+**Frontend**:
 - Navigate to frontend folder
   ```
   cd frontend
