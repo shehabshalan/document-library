@@ -16,6 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import { Button, CardActions, Divider } from "@mui/material";
+import { useUserContext } from "../context/UserContext";
 
 const documentIcon = (fileType) => (
   <>
@@ -32,6 +33,7 @@ const documentIcon = (fileType) => (
   </>
 );
 const DocumentCard = ({ file }) => {
+  const { handleOpen, handleDownloads } = useUserContext();
   return (
     <Card sx={{ maxWidth: 345, height: 400 }}>
       <CardMedia
@@ -71,15 +73,19 @@ const DocumentCard = ({ file }) => {
           </Grid> */}
           <Grid item xs={4} md={4}>
             <ListItem>
-              <FaFileDownload />
-              <ListItemText primary="12" />
+              <FaFileDownload size={20} />
+              <ListItemText primary={file.downloads} />
             </ListItem>
           </Grid>
         </Grid>
         <Divider />
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => handleOpen(file._id)}
+        >
           Share
         </Button>
         <Button
@@ -89,6 +95,7 @@ const DocumentCard = ({ file }) => {
           href={file.fileUrl}
           download
           target="_blank"
+          onClick={() => handleDownloads(file._id)}
         >
           Download
         </Button>
