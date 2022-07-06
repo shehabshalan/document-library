@@ -17,19 +17,29 @@ const SharedDocument = ({ file }) => {
 
   return (
     <Card sx={{ width: 300, height: 400 }}>
-      <CardMedia
-        component="img"
-        height="200"
-        image={
-          supportedPreviewFileTypes.includes(file.fileType)
-            ? file.fileUrl
-            : require("../assets/no-preview.jpg")
-        }
-        alt="green iguana"
-        sx={{ objectFit: "fit" }}
-      />
+      {file?.fileUrl?.includes("pdf") ? (
+        <CardMedia
+          component="img"
+          height="200"
+          image={`${file?.fileUrl?.split("pdf")[0]}jpg`}
+          alt={file?.fileName}
+          sx={{ objectFit: "scale-down" }}
+        />
+      ) : (
+        <CardMedia
+          component="img"
+          height="200"
+          image={
+            supportedPreviewFileTypes.includes(file?.fileType)
+              ? file?.fileUrl
+              : require("../assets/no-preview.jpg")
+          }
+          alt={file?.fileName}
+          sx={{ objectFit: "scale-down" }}
+        />
+      )}
       <CardContent>
-        <Typography variant="h6" component="div">
+        <Typography variant="h6">
           {file?.fileName?.length > 15
             ? file?.fileName?.substring(0, 20) + "..."
             : file?.fileName}

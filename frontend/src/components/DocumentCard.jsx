@@ -19,17 +19,28 @@ const DocumentCard = ({ file }) => {
   const supportedPreviewFileTypes = ["jpg", "png", "gif", "svg"];
   return (
     <Card sx={{ maxWidth: 345, height: 450 }}>
-      <CardMedia
-        component="img"
-        height="200"
-        image={
-          supportedPreviewFileTypes.includes(file.fileType)
-            ? file.fileUrl
-            : require("../assets/no-preview.jpg")
-        }
-        alt={file.fileName}
-        sx={{ objectFit: "fit" }}
-      />
+      {file.fileUrl.includes("pdf") ? (
+        <CardMedia
+          component="img"
+          height="200"
+          image={`${file.fileUrl.split("pdf")[0]}jpg`}
+          alt={file.fileName}
+          sx={{ objectFit: "scale-down" }}
+        />
+      ) : (
+        <CardMedia
+          component="img"
+          height="200"
+          image={
+            supportedPreviewFileTypes.includes(file.fileType)
+              ? file.fileUrl
+              : require("../assets/no-preview.jpg")
+          }
+          alt={file.fileName}
+          sx={{ objectFit: "scale-down" }}
+        />
+      )}
+
       <CardContent>
         <Typography variant="h6" component="div">
           {file.fileName.length > 15
