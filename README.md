@@ -85,7 +85,7 @@ CLOUDINARY_API_CLOUDNAME=dmb4vowh7
 
 ## Inside look:
 
-![Animation](https://user-images.githubusercontent.com/30008865/177469053-618da350-0aa4-4b4a-80b2-4c19d03dfd0e.gif)
+![Animation](https://user-images.githubusercontent.com/30008865/177656256-b49a78f3-b2fe-45f3-acd7-ce31cf76ba43.gif)
 
 
 ## Core Tech Stack:
