@@ -3,6 +3,8 @@ import UploadForm from "../components/UploadForm";
 import Documents from "../components/Documents";
 import { Box, Container, Divider } from "@mui/material";
 import Navbar from "../components/Navbar";
+import ExpirationModal from "../components/ExpirationModal";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -21,6 +23,9 @@ const Home = () => {
         <UploadForm />
         <Divider sx={{ my: 5 }} />
         <Documents />
+        <Divider sx={{ my: 5 }} />
+        <Footer />
+        <ExpirationModal />
       </Container>
     </Box>
   );
