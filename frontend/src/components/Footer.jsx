@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <Box component={"footer"}>
       <Typography>
-        Copyright &copy; {today.getFullYear()} Document Sharing
+        Copyright &copy; {today.getFullYear()} Document Sharing | Shehab Shalan
       </Typography>
     </Box>
   );
