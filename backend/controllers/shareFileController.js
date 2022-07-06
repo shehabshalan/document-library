@@ -48,7 +48,7 @@ const createSharedFile = async (req, res) => {
         .json({ message: "File ID and expiration date are required" });
     const newFile = await ShareFile.create({ fileId, expiresAt });
     res.status(201).json({
-      message: `here is your link http://localhost:3000/sharefile/${newFile._id}`,
+      message: `http://localhost:3000/sharefile/${newFile._id}`,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
