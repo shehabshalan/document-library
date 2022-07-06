@@ -6,15 +6,14 @@ import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div>
+    <main>
       <Navbar />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sharefile/:id" element={<ShareFile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
+    </main>
   );
 }
 
