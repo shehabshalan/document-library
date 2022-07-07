@@ -27,15 +27,19 @@ const getFileById = async (req, res) => {
 };
 
 const uploadFile = async (req, res) => {
-  if (req?.files.length === 0)
-    return res.status(400).json({ message: "No file uploaded" });
-  const files = req.files;
-  const filesUploaded = await Promise.all(
-    files.map((file) => fileUploader(file))
-  );
-  const result = formatData(files, filesUploaded);
-  const newFiles = await File.insertMany(result);
-  res.status(200).json({ result: newFiles });
+  try {
+    if (req?.files.length === 0)
+      return res.status(400).json({ message: "No file uploaded" });
+    const files = req.files;
+    const filesUploaded = await Promise.all(
+      files.map((file) => fileUploader(file))
+    );
+    const result = formatData(files, filesUploaded);
+    const newFiles = await File.insertMany(result);
+    res.status(200).json({ result: newFiles });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 const deleteFile = async (req, res) => {
