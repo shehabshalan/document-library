@@ -13,7 +13,10 @@ The application is a document library intended to give its users a web based sol
   ```
   git clone https://github.com/shehabshalan/document-library
   ```
-
+Navigate to the document-library
+  ```
+  cd document-library
+  ```
 **Backend**:
 - Navigate to backend folder
   ```
