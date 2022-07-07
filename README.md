@@ -3,6 +3,8 @@ The application is a document library intended to give its users a web based sol
 
 **Demo**: https://document-library-api.herokuapp.com/
 
+*Please allow for 20 seconds or so for the demo. it uses Heroku's free plan and it could take time to boot up.*
+
 ### Requirements
 - Node v16
 - React v18
