@@ -30,7 +30,8 @@ const DocumentPreview = ({ file, openImage, handleCloseImage }) => {
             src={`${file.fileUrl.split("pdf")[0]}jpg`}
             width="100%"
             height="100%"
-            style={{ objectFit: "fit" }}
+            style={{ objectFit: "scale-down" }}
+            alt={file.fileName}
           />
         ) : (
           <img
@@ -42,6 +43,7 @@ const DocumentPreview = ({ file, openImage, handleCloseImage }) => {
             width="100%"
             height="100%"
             style={{ objectFit: "scale-down" }}
+            alt={file.fileName}
           />
         )}
       </Box>
