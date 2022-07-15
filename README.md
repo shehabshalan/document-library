@@ -32,20 +32,6 @@ Navigate to the document-library
   ```
   type . > .env
   ```
-<details>
-  <summary>  use the following keys inside the .env file</summary>
-  
-  
-  ```javascript
-  DATABASE_URI=mongodb+srv://shehab:shehab@cluster0.qurbc.mongodb.net/LibraryDB?retryWrites=true&w=majority
-CLOUDINARY_API_KEY=293221968397994
-CLOUDINARY_API_SECRET=PeWchLlvoYnFyU4Q6O_WfOaegOI
-CLOUDINARY_URL=cloudinary://293221968397994:PeWchLlvoYnFyU4Q6O_WfOaegOI@dmb4vowh7
-CLOUDINARY_API_CLOUDNAME=dmb4vowh7
-  ```
-  
-</details>
-
 - Run the backend
   ```
   npm start
